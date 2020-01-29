@@ -10,13 +10,13 @@ import UIKit
 
 class MainView: UIView {
 
-    private lazy var colorGameImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "gear")
-        return imageView
+    public lazy var colorGameImage: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
     }()
     
-    private lazy var redButton: UIButton = {
+    public lazy var redButton: UIButton = {
         let button = UIButton()
         button.setTitle("Red", for: .normal)
         button.backgroundColor = .systemRed
@@ -24,7 +24,7 @@ class MainView: UIView {
         return button
     }()
     
-    private lazy var blueButton: UIButton = {
+    public lazy var blueButton: UIButton = {
         let button = UIButton()
         button.setTitle("Blue", for: .normal)
         button.backgroundColor = .systemBlue
@@ -32,10 +32,18 @@ class MainView: UIView {
         return button
     }()
     
-    private lazy var greenButton: UIButton = {
+    public lazy var greenButton: UIButton = {
         let button = UIButton()
         button.setTitle("Green", for: .normal)
         button.backgroundColor = .systemGreen
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    public lazy var resetButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Reset", for: .normal)
+        button.backgroundColor = .systemGray
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -71,9 +79,11 @@ class MainView: UIView {
         addSubview(blueButton)
         addSubview(redButton)
         addSubview(greenButton)
+        addSubview(resetButton)
         blueButton.translatesAutoresizingMaskIntoConstraints = false
         redButton.translatesAutoresizingMaskIntoConstraints = false
         greenButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             blueButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             blueButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
@@ -82,7 +92,10 @@ class MainView: UIView {
             redButton.trailingAnchor.constraint(equalTo: blueButton.leadingAnchor, constant: -50),
             
             greenButton.centerYAnchor.constraint(equalTo: blueButton.centerYAnchor),
-            greenButton.leadingAnchor.constraint(equalTo: blueButton.trailingAnchor, constant: 50)
+            greenButton.leadingAnchor.constraint(equalTo: blueButton.trailingAnchor, constant: 50),
+            
+            resetButton.centerXAnchor.constraint(equalTo: blueButton.centerXAnchor),
+            resetButton.topAnchor.constraint(equalTo: blueButton.bottomAnchor, constant: 50)
             
         ])
       
