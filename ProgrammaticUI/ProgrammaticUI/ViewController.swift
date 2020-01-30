@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     private var randomBlue: CGFloat = 0.0
     private var randomGreen: CGFloat = 0.0
     private var randomAlpha: CGFloat = 0.0
+    private var highScore = 0
+    private var currentScore = 0
     
     
     override func viewDidLoad() {
@@ -25,10 +27,18 @@ class ViewController: UIViewController {
         mainView.redButton.addTarget(self, action: #selector(colorGuessed(_:)), for: .touchUpInside)
         mainView.blueButton.addTarget(self, action: #selector(colorGuessed(_:)), for: .touchUpInside)
         mainView.greenButton.addTarget(self, action: #selector(colorGuessed(_:)), for: .touchUpInside)
+        highScoreUpdate()
     }
     
     override func loadView() {
         view = mainView
+    }
+    
+    private func highScoreUpdate() {
+        if currentScore > highScore {
+            highScore = currentScore
+        }
+        mainView.scoreLabel.text = "High Score: \(highScore)"
     }
     
     @objc
@@ -64,8 +74,13 @@ class ViewController: UIViewController {
         switch sender.tag {
         case colorTag:
             mainView.resultLabel.text = "Correct!"
+            currentScore += 1
+            highScoreUpdate()
+            
         default:
-            mainView.resultLabel.text = "Incorrect"
+            mainView.resultLabel.text = "Incorrect. Play again?"
+            highScoreUpdate()
+            currentScore = 0
         }
     }
     

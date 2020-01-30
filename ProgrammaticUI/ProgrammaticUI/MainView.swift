@@ -57,6 +57,12 @@ class MainView: UIView {
         return label
     }()
     
+    public lazy var scoreLabel: UILabel = {
+        let label = UILabel()
+        label.text = "neat"
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -111,11 +117,15 @@ class MainView: UIView {
     
     private func setupLabels() {
         addSubview(resultLabel)
+        addSubview(scoreLabel)
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             resultLabel.topAnchor.constraint(equalTo: resetButton.bottomAnchor, constant: 70),
-            resultLabel.centerXAnchor.constraint(equalTo: blueButton.centerXAnchor)
+            resultLabel.centerXAnchor.constraint(equalTo: blueButton.centerXAnchor),
             
+            scoreLabel.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 70),
+            scoreLabel.centerXAnchor.constraint(equalTo: resultLabel.centerXAnchor)
         ])
     }
  
