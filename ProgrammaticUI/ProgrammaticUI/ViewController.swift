@@ -12,29 +12,32 @@ class ViewController: UIViewController {
     
     private let mainView = MainView()
     
-    var randomRed: CGFloat = 0.0
-    var randomBlue: CGFloat = 0.0
-    var randomGreen: CGFloat = 0.0
-    var randomAlpha: CGFloat = 0.0
+    private var randomRed: CGFloat = 0.0
+    private var randomBlue: CGFloat = 0.0
+    private var randomGreen: CGFloat = 0.0
+    private var randomAlpha: CGFloat = 0.0
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemYellow
-        mainView.resetButton.addTarget(self, action: #selector(randomColor(_:)), for: .touchUpInside)
+        view.backgroundColor = .white
+        mainView.resetButton.addTarget(self, action: #selector(resetRandomColor(_:)), for: .touchUpInside)
+        mainView.redButton.addTarget(self, action: #selector(colorGuessed(_:)), for: .touchUpInside)
+        mainView.blueButton.addTarget(self, action: #selector(colorGuessed(_:)), for: .touchUpInside)
+        mainView.greenButton.addTarget(self, action: #selector(colorGuessed(_:)), for: .touchUpInside)
     }
     
     override func loadView() {
         view = mainView
     }
-
+    
     @objc
-    private func randomColor(_ sender: UIButton) {
+    private func resetRandomColor(_ sender: UIButton) {
         randomRed = CGFloat.random(in: 0...1)
         randomBlue = CGFloat.random(in: 0...1)
         randomGreen = CGFloat.random(in: 0...1)
         randomAlpha = CGFloat.random(in: 0...1)
-
+        
         let myColor = UIColor(red: randomRed,
                               green: randomGreen,
                               blue: randomBlue,
@@ -42,6 +45,29 @@ class ViewController: UIViewController {
         mainView.colorGameImage.backgroundColor = myColor
         
     }
-
+    
+    @objc
+    private func colorGuessed(_ sender: UIButton) {
+        let colorVals = [randomBlue, randomGreen, randomRed]
+        let mostOfColor = colorVals.max()
+        var colorTag = -1
+        switch mostOfColor {
+        case randomRed:
+            colorTag = 0
+        case randomBlue:
+            colorTag = 1
+        case randomGreen:
+            colorTag = 2
+        default:
+            colorTag = 0
+        }
+        switch sender.tag {
+        case colorTag:
+            mainView.resultLabel.text = "Correct!"
+        default:
+            mainView.resultLabel.text = "Incorrect"
+        }
+    }
+    
 }
 

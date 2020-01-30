@@ -12,7 +12,7 @@ class MainView: UIView {
 
     public lazy var colorGameImage: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .red
         return view
     }()
     
@@ -21,6 +21,7 @@ class MainView: UIView {
         button.setTitle("Red", for: .normal)
         button.backgroundColor = .systemRed
         button.setTitleColor(.black, for: .normal)
+        button.tag = 0
         return button
     }()
     
@@ -29,6 +30,7 @@ class MainView: UIView {
         button.setTitle("Blue", for: .normal)
         button.backgroundColor = .systemBlue
         button.setTitleColor(.black, for: .normal)
+        button.tag = 1
         return button
     }()
     
@@ -37,6 +39,7 @@ class MainView: UIView {
         button.setTitle("Green", for: .normal)
         button.backgroundColor = .systemGreen
         button.setTitleColor(.black, for: .normal)
+        button.tag = 2
         return button
     }()
     
@@ -46,6 +49,12 @@ class MainView: UIView {
         button.backgroundColor = .systemGray
         button.setTitleColor(.black, for: .normal)
         return button
+    }()
+    
+    public lazy var resultLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -61,6 +70,7 @@ class MainView: UIView {
     private func commonInit() {
         setupImageViewConstraints()
         setupButtons()
+        setupLabels()
     }
     
     private func setupImageViewConstraints() {
@@ -96,9 +106,17 @@ class MainView: UIView {
             
             resetButton.centerXAnchor.constraint(equalTo: blueButton.centerXAnchor),
             resetButton.topAnchor.constraint(equalTo: blueButton.bottomAnchor, constant: 50)
+        ])
+    }
+    
+    private func setupLabels() {
+        addSubview(resultLabel)
+        resultLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            resultLabel.topAnchor.constraint(equalTo: resetButton.bottomAnchor, constant: 70),
+            resultLabel.centerXAnchor.constraint(equalTo: blueButton.centerXAnchor)
             
         ])
-      
     }
  
 
